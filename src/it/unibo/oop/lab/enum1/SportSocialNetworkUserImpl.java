@@ -4,9 +4,7 @@
 package it.unibo.oop.lab.enum1;
 
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUserImpl;
@@ -50,8 +48,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      *            application
      */
     public SportSocialNetworkUserImpl(final String name, final String surname, final String user) {
-        this(name, surname, user, -1);
-        this.followedSports = new HashSet<>();
+        this(name, surname, user, -1);   
     }
 
     /**
@@ -69,6 +66,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     public SportSocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
         super(name, surname, user, userAge);
+        this.followedSports = new HashSet<>();
     }
 
     /*
@@ -98,11 +96,6 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      * @return true if the user likes sport s
      */
     public boolean hasSport(final Sport s) {
-    	for (Sport sport : this.followedSports) {
-    		if(sport == s) {
-    			return true;
-    		}
-    	}
-    	return false;
+    	return this.followedSports.contains(s);
     }
 }
