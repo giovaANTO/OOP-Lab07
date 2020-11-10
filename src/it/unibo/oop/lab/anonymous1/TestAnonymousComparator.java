@@ -1,6 +1,8 @@
 package it.unibo.oop.lab.anonymous1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUser;
@@ -22,7 +24,7 @@ import it.unibo.oop.lab.socialnetwork.User;
 public final class TestAnonymousComparator {
 
     private TestAnonymousComparator() { }
-
+    
     /**
      * Check whether the users in result list are in the same order as those in
      * expected.
@@ -57,6 +59,13 @@ public final class TestAnonymousComparator {
         final SocialNetworkUser<User> ntaleb = new SocialNetworkUserImpl<>("Nicholas", "Taleb", "ntaleb", 54);
         final SocialNetworkUser<User> mrossi = new SocialNetworkUserImpl<>("Mario", "Rossi", "mrossi", 31);
         final SocialNetworkUser<User> pverdi = new SocialNetworkUserImpl<>("Paolo", "Verdi", "pverdi", 24);
+        
+        Comparator<User> comparer = new Comparator<User>() {
+        	public int compare(User o1, User o2) {
+				return Integer.compare(o1.getAge(), o2.getAge());
+			}
+		};
+    
         // TEST on DENZEL
         dwashington.addFollowedUser("relatives", mrossi);
         dwashington.addFollowedUser("relatives", pverdi);
@@ -64,6 +73,7 @@ public final class TestAnonymousComparator {
         dwashington.addFollowedUser("writers", mgladwell);
         dwashington.addFollowedUser("writers", ntaleb);
         final List<User> denzelUsers = dwashington.getFollowedUsers();
+        
         /*
          * Order denzel's followed users incrementally by age:
          * 
@@ -74,7 +84,8 @@ public final class TestAnonymousComparator {
          * 
          * REFER TO LESSON 13-Advanced-Mechanisms.pdf, slide 41
          */
-        // TODO
+        
+        Collections.sort(denzelUsers, comparer);
         /*
          * expected Result
          */
@@ -105,7 +116,7 @@ public final class TestAnonymousComparator {
          * NOTE: in order to sort a list think about a method of the utility
          * class Collections
          */
-        // TODO
+        Collections.sort(rossiUsers, comparer.reversed());
         /*
          * expected Result
          */
